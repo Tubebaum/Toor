@@ -21,7 +21,6 @@
 	[_username setDelegate:self];
 	[_password setDelegate:self];
 	[_email setDelegate:self];
-	[_username becomeFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -33,6 +32,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	if ([PFUser currentUser]) {
 		[self performSegueWithIdentifier:@"signupSegue" sender:nil];
+	} else {
+		[_username becomeFirstResponder];
 	}
 }
 

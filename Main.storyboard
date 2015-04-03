@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="E14-0g-wjg">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--LoginView-->
@@ -32,7 +33,7 @@
                                 <rect key="frame" x="183" y="181" width="235" height="30"/>
                                 <color key="textColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="go"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="go"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HBW-bd-Ttd">
                                 <rect key="frame" x="183" y="105" width="235" height="30"/>
@@ -66,7 +67,7 @@
                         <outlet property="password" destination="Lvc-47-l7y" id="nxc-Ec-mCe"/>
                         <outlet property="signup" destination="S0w-Cz-is4" id="WmR-oU-Oql"/>
                         <outlet property="username" destination="HBW-bd-Ttd" id="wCT-2E-zmk"/>
-                        <segue destination="tBa-T5-ufM" kind="presentation" identifier="signupSegue" modalTransitionStyle="flipHorizontal" id="7jg-uf-sqU"/>
+                        <segue destination="tBa-T5-ufM" kind="presentation" identifier="signupSegue" modalTransitionStyle="crossDissolve" id="7jg-uf-sqU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ze-i0-A9j" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,7 +77,7 @@
         <!--MapView-->
         <scene sceneID="LnR-kW-Tff">
             <objects>
-                <viewController title="MapView" id="tBa-T5-ufM" sceneMemberID="viewController">
+                <viewController title="MapView" id="tBa-T5-ufM" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5ea-rk-yTu"/>
                         <viewControllerLayoutGuide type="bottom" id="B7j-Aj-A3b"/>
@@ -84,7 +85,26 @@
                     <view key="view" contentMode="scaleToFill" id="7WN-GL-ZlS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="onh-XX-edy">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Sign Out" id="iOy-pC-kqk">
+                                        <connections>
+                                            <action selector="signOut:" destination="tBa-T5-ufM" id="jSN-G3-X8i"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SLx-SD-9lS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="onh-XX-edy" firstAttribute="bottom" secondItem="7WN-GL-ZlS" secondAttribute="bottomMargin" id="WIN-gI-DeQ"/>
+                            <constraint firstItem="onh-XX-edy" firstAttribute="top" secondItem="SLx-SD-9lS" secondAttribute="bottom" id="nVY-ph-0cP"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNA-nS-ulA" userLabel="First Responder" sceneMemberID="firstResponder"/>

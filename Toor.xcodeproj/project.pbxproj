@@ -26,6 +26,8 @@
 		E2B1E47D1ACE375300ADB706 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B1E47C1ACE375300ADB706 /* libsqlite3.dylib */; };
 		E2B1E4801ACE45EF00ADB706 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2B1E47F1ACE45EF00ADB706 /* LoginViewController.m */; };
 		E2B1E4841ACE4ACC00ADB706 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2B1E4831ACE4ACC00ADB706 /* Main.storyboard */; };
+		E2F07A8F1ACED83600111124 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2F07A8E1ACED83600111124 /* MapKit.framework */; };
+		E2F07A921ACED8C500111124 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2F07A911ACED8C500111124 /* MapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,9 @@
 		E2B1E47E1ACE45EF00ADB706 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		E2B1E47F1ACE45EF00ADB706 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		E2B1E4831ACE4ACC00ADB706 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
+		E2F07A8E1ACED83600111124 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E2F07A901ACED8C500111124 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		E2F07A911ACED8C500111124 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2B1E46F1ACE371B00ADB706 /* CoreLocation.framework in Frameworks */,
+				E2F07A8F1ACED83600111124 /* MapKit.framework in Frameworks */,
 				E2B1E47D1ACE375300ADB706 /* libsqlite3.dylib in Frameworks */,
 				E2B1E47B1ACE374900ADB706 /* libz.dylib in Frameworks */,
 				E2B1E4791ACE374000ADB706 /* SystemConfiguration.framework in Frameworks */,
@@ -78,7 +85,6 @@
 				E2B1E4751ACE373300ADB706 /* Security.framework in Frameworks */,
 				E2B1E4731ACE372B00ADB706 /* QuartzCore.framework in Frameworks */,
 				E2B1E4711ACE372200ADB706 /* MobileCoreServices.framework in Frameworks */,
-				E2B1E46F1ACE371B00ADB706 /* CoreLocation.framework in Frameworks */,
 				E2B1E46D1ACE371300ADB706 /* CoreGraphics.framework in Frameworks */,
 				E2B1E46B1ACE370800ADB706 /* CFNetwork.framework in Frameworks */,
 				E2B1E4691ACE370100ADB706 /* AudioToolbox.framework in Frameworks */,
@@ -121,11 +127,13 @@
 			children = (
 				E258BFC61ACE34BC0045BBE5 /* Supporting Files */,
 				E258BFD31ACE34BC0045BBE5 /* Images.xcassets */,
+				E2B1E4831ACE4ACC00ADB706 /* Main.storyboard */,
 				E258BFCA1ACE34BC0045BBE5 /* AppDelegate.h */,
 				E258BFCB1ACE34BC0045BBE5 /* AppDelegate.m */,
 				E2B1E47E1ACE45EF00ADB706 /* LoginViewController.h */,
 				E2B1E47F1ACE45EF00ADB706 /* LoginViewController.m */,
-				E2B1E4831ACE4ACC00ADB706 /* Main.storyboard */,
+				E2F07A901ACED8C500111124 /* MapViewController.h */,
+				E2F07A911ACED8C500111124 /* MapViewController.m */,
 			);
 			path = Toor;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 		E2B1E4821ACE473400ADB706 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E2F07A8E1ACED83600111124 /* MapKit.framework */,
 				E2B1E47C1ACE375300ADB706 /* libsqlite3.dylib */,
 				E2B1E47A1ACE374900ADB706 /* libz.dylib */,
 				E2B1E4781ACE374000ADB706 /* SystemConfiguration.framework */,
@@ -225,6 +234,7 @@
 				TargetAttributes = {
 					E258BFC21ACE34BC0045BBE5 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = V2X8NH6H6E;
 					};
 					E258BFDB1ACE34BC0045BBE5 = {
 						CreatedOnToolsVersion = 6.2;
@@ -278,6 +288,7 @@
 				E258BFCC1ACE34BC0045BBE5 /* AppDelegate.m in Sources */,
 				E258BFC91ACE34BC0045BBE5 /* main.m in Sources */,
 				E2B1E4801ACE45EF00ADB706 /* LoginViewController.m in Sources */,
+				E2F07A921ACED8C500111124 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

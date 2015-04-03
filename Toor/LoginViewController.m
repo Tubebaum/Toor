@@ -24,6 +24,18 @@
 	[_username becomeFirstResponder];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[_username setText:nil];
+	[_password setText:nil];
+	[_email setText:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	if ([PFUser currentUser]) {
+		[self performSegueWithIdentifier:@"signupSegue" sender:nil];
+	}
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -54,7 +66,6 @@
 	[user setEmail:[_email text]];
 	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		if (!error) {
-			NSLog(@"COOL");
 			[self performSegueWithIdentifier:@"signupSegue" sender:nil];
 		} else {
 			NSString *errorString = [error userInfo][@"error"];

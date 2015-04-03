@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="E14-0g-wjg">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <scenes>
+        <!--LoginView-->
+        <scene sceneID="pIu-d9-L1T">
+            <objects>
+                <viewController title="LoginView" id="E14-0g-wjg" customClass="LoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NA6-le-FQv"/>
+                        <viewControllerLayoutGuide type="bottom" id="xiE-bv-8gs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wZI-gh-sWk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Welcome to Toor!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUZ-9r-ROk">
+                                <rect key="frame" x="16" y="20" width="568" height="77"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="35"/>
+                                <color key="textColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lvc-47-l7y">
+                                <rect key="frame" x="183" y="143" width="235" height="30"/>
+                                <color key="textColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" secureTextEntry="YES"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hNu-DZ-BBg">
+                                <rect key="frame" x="183" y="181" width="235" height="30"/>
+                                <color key="textColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="go"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HBW-bd-Ttd">
+                                <rect key="frame" x="183" y="105" width="235" height="30"/>
+                                <color key="textColor" red="0.60000002384185791" green="0.40000000596046448" blue="0.20000000298023224" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0w-Cz-is4">
+                                <rect key="frame" x="271" y="219" width="59" height="30"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="signupTouchUp:" destination="E14-0g-wjg" eventType="touchUpInside" id="kjn-GZ-Ek6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="S0w-Cz-is4" secondAttribute="centerX" id="43X-dR-f30"/>
+                            <constraint firstAttribute="centerX" secondItem="Lvc-47-l7y" secondAttribute="centerX" id="FK3-ui-A2H"/>
+                            <constraint firstAttribute="centerX" secondItem="hNu-DZ-BBg" secondAttribute="centerX" id="OFa-5R-ViA"/>
+                            <constraint firstAttribute="centerX" secondItem="HBW-bd-Ttd" secondAttribute="centerX" id="S4R-ip-TYQ"/>
+                            <constraint firstAttribute="centerX" secondItem="gUZ-9r-ROk" secondAttribute="centerX" id="bpe-Pb-7ea"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="email" destination="hNu-DZ-BBg" id="0cH-nO-JqS"/>
+                        <outlet property="password" destination="Lvc-47-l7y" id="nxc-Ec-mCe"/>
+                        <outlet property="signup" destination="S0w-Cz-is4" id="WmR-oU-Oql"/>
+                        <outlet property="username" destination="HBW-bd-Ttd" id="wCT-2E-zmk"/>
+                        <segue destination="tBa-T5-ufM" kind="presentation" identifier="signupSegue" modalTransitionStyle="flipHorizontal" id="7jg-uf-sqU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ze-i0-A9j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="329" y="349"/>
+        </scene>
+        <!--MapView-->
+        <scene sceneID="LnR-kW-Tff">
+            <objects>
+                <viewController title="MapView" id="tBa-T5-ufM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5ea-rk-yTu"/>
+                        <viewControllerLayoutGuide type="bottom" id="B7j-Aj-A3b"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7WN-GL-ZlS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sNA-nS-ulA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1145" y="349"/>
+        </scene>
+    </scenes>
+</document>

@@ -96,7 +96,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="SLx-SD-9lS">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SLx-SD-9lS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                             </mapView>
                         </subviews>
@@ -106,6 +106,9 @@
                             <constraint firstItem="onh-XX-edy" firstAttribute="top" secondItem="SLx-SD-9lS" secondAttribute="bottom" id="nVY-ph-0cP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="SLx-SD-9lS" id="eWv-7S-iHs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sNA-nS-ulA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

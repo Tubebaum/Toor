@@ -21,6 +21,9 @@
 	[_username setDelegate:self];
 	[_password setDelegate:self];
 	[_email setDelegate:self];
+	_locationManager = [[CLLocationManager alloc] init];
+	[_locationManager setDelegate:self];
+	[_locationManager requestWhenInUseAuthorization];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

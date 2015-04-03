@@ -21,6 +21,32 @@
 	_locationManager = [[CLLocationManager alloc] init];
 	[_locationManager setDelegate:self];
 	[_mapView setRegion:MKCoordinateRegionMake([[_locationManager location] coordinate], MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
+	NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:4];
+	for (int i = 0; i < 4; ++i) {
+		points[i] = [[MKPointAnnotation alloc] init];
+		switch (i) {
+			case 0:
+				[points[i] setTitle:@"North"];
+				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude + 0.00125, [[_locationManager location] coordinate].longitude)];
+				break;
+			case 1:
+				[points[i] setTitle:@"East"];
+				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude, [[_locationManager location] coordinate].longitude + 0.00125)];
+				break;
+			case 2:
+				[points[i] setTitle:@"South"];
+				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude - 0.00125, [[_locationManager location] coordinate].longitude)];
+				break;
+			case 3:
+				[points[i] setTitle:@"West"];
+				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude, [[_locationManager location] coordinate].longitude - 0.00125)];
+				break;
+			default:
+				break;
+		}
+		[_mapView addAnnotations:points];
+	}
+	
 }
 
 - (void)didReceiveMemoryWarning {
@@ -31,6 +57,24 @@
 - (IBAction)signOut:(id)sender {
 	[PFUser logOut];
 	[self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+	if ([annotation isKindOfClass:[MKUserLocation class]]) {
+		return nil;
+	}
+	MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [mapView dequeueReusableAnnotationViewWithIdentifier:@"annotationView"];
+	if (!annotationView) {
+		annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotationView"];
+		[annotationView setAnimatesDrop:YES];
+		[annotationView setCanShowCallout:YES];
+		UIButton *informationButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		[informationButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+		[annotationView setRightCalloutAccessoryView:informationButton];
+	} else {
+		[annotationView setAnnotation:annotation];
+	}
+	return annotationView;
 }
 
 /*

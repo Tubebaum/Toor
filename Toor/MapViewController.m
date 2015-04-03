@@ -7,7 +7,6 @@
 //
 
 #import "MapViewController.h"
-#import <Parse/Parse.h>
 
 @interface MapViewController ()
 
@@ -18,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	[_mapView setDelegate:self];
+	_locationManager = [[CLLocationManager alloc] init];
+	[_locationManager setDelegate:self];
+	[_mapView setRegion:MKCoordinateRegionMake([[_locationManager location] coordinate], MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

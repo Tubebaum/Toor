@@ -22,6 +22,15 @@
 	[_locationManager setDelegate:self];
 	[_mapView setRegion:MKCoordinateRegionMake([[_locationManager location] coordinate], MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
 	NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:4];
+	int point = 0;
+	for (float i = 0.00125; i > -0.00375; i -= 0.00250) {
+		for (float j = 0.00125; j > -0.00375; j -= 0.00250) {
+			points[point] = [[MKPointAnnotation alloc] init];
+			[points[point++] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude + i, [[_locationManager location] coordinate].longitude + j)];
+		}
+	}
+	[_mapView addAnnotations:points];
+	/*
 	for (int i = 0; i < 4; ++i) {
 		points[i] = [[MKPointAnnotation alloc] init];
 		switch (i) {
@@ -46,7 +55,14 @@
 		}
 		[_mapView addAnnotations:points];
 	}
-	
+	*/
+	[_longPress addTarget:self action:@selector(longPressed:)];
+}
+
+- (void)longPressed:(UILongPressGestureRecognizer *)sender {
+	if (sender.state == UIGestureRecognizerStateBegan) {
+		NSLog(@"uh oh");
+	}
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,5 +102,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end

@@ -24,6 +24,10 @@
 	[self refreshToors:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[self refreshToors:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

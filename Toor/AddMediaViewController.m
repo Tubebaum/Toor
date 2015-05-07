@@ -53,23 +53,7 @@
 					[_imageOutput setOutputSettings:@{AVVideoCodecKey: AVVideoCodecJPEG}];
 					if ([_session canAddOutput:_imageOutput]) {
 						[_session addOutput:_imageOutput];
-						AVCaptureConnection *connection = nil;
-						for (AVCaptureConnection *captureConnection in [_imageOutput connections]) {
-							for (AVCaptureInputPort *port in [captureConnection inputPorts]) {
-								if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-									connection = captureConnection;
-									break;
-								}
-							}
-							if (connection) {
-								break;
-							}
-						}
 						[_session startRunning];
-						NSLog(@"ready");
-						[_imageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
-							NSData *data = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
-						}];
 					}
 				}
 			}
@@ -98,8 +82,40 @@
 			break;
 	}
 }
-- (IBAction)captureButton:(id)sender {
 
+- (IBAction)captureButton:(id)sender {
+	AVCaptureConnection *connection = nil;
+	switch ([_segment selectedSegmentIndex]) {
+		case 0: {
+			break;
+		}
+		case 1: {
+			for (AVCaptureConnection *captureConnection in [_imageOutput connections]) {
+				for (AVCaptureInputPort *port in [captureConnection inputPorts]) {
+					if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
+						connection = captureConnection;
+						break;
+					}
+				}
+				if (connection) {
+					break;
+				}
+			}
+			[_imageOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:^(CMSampleBufferRef buffer, NSError *error) {
+				[_session stopRunning];
+				NSData *data = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
+				PFFile *file = [PFFile fileWithData:data];
+				[_stop addObject:file forKey:@"media"];
+			}];
+			break;
+		}
+		default: {
+			break;
+		}
+	}
+	[_stop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+		[[self navigationController] popViewControllerAnimated:NO];
+	}];
 }
 
 - (void)didReceiveMemoryWarning {

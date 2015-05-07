@@ -11,6 +11,7 @@
 		E2258FB51AFA9C2000F91524 /* FinalizeToorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FB41AFA9C2000F91524 /* FinalizeToorViewController.m */; };
 		E2258FBE1AFB419200F91524 /* EditStopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FBD1AFB419200F91524 /* EditStopTableViewController.m */; };
 		E2258FC11AFB42D300F91524 /* AddMediaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FC01AFB42D300F91524 /* AddMediaViewController.m */; };
+		E2258FC41AFB815000F91524 /* FinalizeStopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FC31AFB815000F91524 /* FinalizeStopViewController.m */; };
 		E258BFC91ACE34BC0045BBE5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E258BFC81ACE34BC0045BBE5 /* main.m */; };
 		E258BFCC1ACE34BC0045BBE5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E258BFCB1ACE34BC0045BBE5 /* AppDelegate.m */; };
 		E258BFD41ACE34BC0045BBE5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E258BFD31ACE34BC0045BBE5 /* Images.xcassets */; };
@@ -53,6 +54,8 @@
 		E2258FBD1AFB419200F91524 /* EditStopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditStopTableViewController.m; sourceTree = "<group>"; };
 		E2258FBF1AFB42D300F91524 /* AddMediaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddMediaViewController.h; sourceTree = "<group>"; };
 		E2258FC01AFB42D300F91524 /* AddMediaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMediaViewController.m; sourceTree = "<group>"; };
+		E2258FC21AFB815000F91524 /* FinalizeStopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalizeStopViewController.h; sourceTree = "<group>"; };
+		E2258FC31AFB815000F91524 /* FinalizeStopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalizeStopViewController.m; sourceTree = "<group>"; };
 		E258BFC31ACE34BC0045BBE5 /* Toor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E258BFC71ACE34BC0045BBE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E258BFC81ACE34BC0045BBE5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				E2258FBD1AFB419200F91524 /* EditStopTableViewController.m */,
 				E2258FBF1AFB42D300F91524 /* AddMediaViewController.h */,
 				E2258FC01AFB42D300F91524 /* AddMediaViewController.m */,
+				E2258FC21AFB815000F91524 /* FinalizeStopViewController.h */,
+				E2258FC31AFB815000F91524 /* FinalizeStopViewController.m */,
 			);
 			path = Toor;
 			sourceTree = "<group>";
@@ -312,6 +317,7 @@
 				E2B1E4801ACE45EF00ADB706 /* LoginViewController.m in Sources */,
 				E2258FAF1AF9AB3E00F91524 /* AddToorViewController.m in Sources */,
 				E2258FBE1AFB419200F91524 /* EditStopTableViewController.m in Sources */,
+				E2258FC41AFB815000F91524 /* FinalizeStopViewController.m in Sources */,
 				E2F07A921ACED8C500111124 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

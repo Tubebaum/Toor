@@ -19,5 +19,6 @@
 @property (strong, nonatomic) AVCaptureSession *session;
 @property (strong, nonatomic) AVCaptureDeviceInput *input;
 @property (strong, nonatomic) AVCaptureStillImageOutput *imageOutput;
+@property (strong, nonatomic) PFObject *stop;
 
 @end

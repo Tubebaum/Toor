@@ -25,6 +25,23 @@
 	[_mapView addGestureRecognizer:_longPress];
 	_stops = [[NSMutableArray alloc] init];
 	_stopDict = [[NSMutableDictionary alloc] init];
+	_triggeredPin = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	if (_triggeredPin) {
+		PFObject *stop = [_stopDict objectForKey:[NSValue valueWithNonretainedObject:_triggeredPin]];
+		if ([stop[@"name"] isEqualToString:@""]) {
+			[_triggeredPin setTitle:[NSString stringWithFormat:@"Stop %d", [_stops count] - 1]];
+		} else {
+			[_triggeredPin setTitle:stop[@"name"]];
+		}
+		[_triggeredPin setSubtitle:stop[@"description"]];
+		[_mapView removeAnnotation:_triggeredPin];
+		[_mapView addAnnotation:_triggeredPin];
+		[_mapView selectAnnotation:_triggeredPin animated:YES];
+	}
 }
 
 - (void)longPressed:(UILongPressGestureRecognizer *)sender {
@@ -36,7 +53,8 @@
 		[point setCoordinate:location];
 		[_stops addObject:point];
 		PFObject *stop = [PFObject objectWithClassName:@"Stop"];
-		stop[@"name"] = [point title];
+		stop[@"name"] = @"";
+		stop[@"description"] = @"";
 		[_stopDict setObject:stop forKey:[NSValue valueWithNonretainedObject:point]];
 		[_mapView addAnnotation:point];
 		[_mapView selectAnnotation:point animated:YES];
@@ -73,7 +91,7 @@
 		[finalize setToor:sender];
 	} else if ([[segue identifier] isEqualToString:@"stopSegue"]) {
 		EditStopTableViewController *stop = [segue destinationViewController];
-		[stop setToor:sender];
+		[stop setStop:sender];
 	}
 }
 

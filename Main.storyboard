@@ -221,7 +221,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="mp4-RD-Oan">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="mediaCell" id="mp4-RD-Oan">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mp4-RD-Oan" id="Jyf-oj-avL">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -229,21 +229,78 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="Syb-5f-eYR" id="pZZ-CN-WEc"/>
-                            <outlet property="delegate" destination="Syb-5f-eYR" id="6or-MD-vev"/>
+                            <outlet property="dataSource" destination="Syb-5f-eYR" id="qbJ-KR-Pmv"/>
+                            <outlet property="delegate" destination="Syb-5f-eYR" id="TkA-me-pZy"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Edit Stop" id="f5d-yc-kf7">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="f2G-H6-G25">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="f2G-H6-G25">
                             <connections>
-                                <segue destination="6s6-li-qbd" kind="show" identifier="mediaSegue" id="To6-bA-dTx"/>
+                                <action selector="addMedia:" destination="Syb-5f-eYR" id="PFk-Sb-RCz"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="dTm-6X-TVG">
+                            <connections>
+                                <action selector="finalizeStop:" destination="Syb-5f-eYR" id="eBF-v2-HLK"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="table" destination="SaN-1u-mzX" id="Agb-1X-jTO"/>
+                        <segue destination="6s6-li-qbd" kind="show" identifier="mediaSegue" id="s65-q2-1Ij"/>
+                        <segue destination="eaY-uu-scc" kind="show" identifier="finalizeSegue" id="7YM-pZ-YSy"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFk-w6-BQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3329" y="349"/>
+        </scene>
+        <!--Finalize Stop-->
+        <scene sceneID="D6O-3C-jGS">
+            <objects>
+                <viewController id="eaY-uu-scc" customClass="FinalizeStopViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Hd-ew-F3m"/>
+                        <viewControllerLayoutGuide type="bottom" id="Idz-g3-OwS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="44N-mU-Ksh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dja-Qa-zod">
+                                <rect key="frame" x="150" y="72" width="300" height="30"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u4d-Nb-rg1">
+                                <rect key="frame" x="150" y="110" width="300" height="30"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="dja-Qa-zod" secondAttribute="centerX" id="cyU-fB-g2a"/>
+                            <constraint firstAttribute="centerX" secondItem="u4d-Nb-rg1" secondAttribute="centerX" id="epx-LV-k7z"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Finalize Stop" id="71R-bA-xu8">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="AtF-8g-XDU">
+                            <connections>
+                                <action selector="doneToor:" destination="eaY-uu-scc" id="yZi-Vi-2XA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="descriptionField" destination="u4d-Nb-rg1" id="Ft4-Zq-cKo"/>
+                        <outlet property="nameField" destination="dja-Qa-zod" id="1CN-KI-zIB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uob-oM-Rdz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4040" y="-337"/>
         </scene>
         <!--Add Media-->
         <scene sceneID="LQs-mN-4Im">
@@ -271,12 +328,16 @@
                                     <action selector="segmented:" destination="6s6-li-qbd" eventType="valueChanged" id="eb5-mu-IMa"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-hi-O0z">
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-hi-O0z">
                                 <rect key="frame" x="0.0" y="108" width="600" height="443"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="V2p-Sh-yBx" secondAttribute="centerX" id="NMu-6o-ox4"/>
+                            <constraint firstAttribute="centerX" secondItem="YfP-hi-O0z" secondAttribute="centerX" id="hvi-ma-8OA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add Media" id="cv4-0l-GIQ">
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="1yf-ug-3IZ">
@@ -293,7 +354,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XA8-jB-Sjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4022" y="349"/>
+            <point key="canvasLocation" x="4040" y="349"/>
         </scene>
         <!--Finalize Toor-->
         <scene sceneID="26u-KQ-Hra">
@@ -315,13 +376,13 @@
                                     <constraint firstAttribute="width" constant="97" id="kxw-mB-irL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lPE-r6-Spj">
                                 <rect key="frame" x="150" y="143" width="300" height="30"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>

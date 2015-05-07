@@ -21,6 +21,8 @@
 	_locationManager = [[CLLocationManager alloc] init];
 	[_locationManager setDelegate:self];
 	[_mapView setRegion:MKCoordinateRegionMake([[_locationManager location] coordinate], MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
+	_toors = [[NSMutableDictionary alloc] init];
+	_triggeredPin = nil;
 	[self refreshToors:nil];
 }
 
@@ -46,15 +48,16 @@
 			PFGeoPoint *geopoint = toor[@"location"];
 			[point setCoordinate: CLLocationCoordinate2DMake([geopoint latitude], [geopoint longitude])];
 			[points addObject:point];
+			[_toors setObject:toor forKey:[NSValue valueWithNonretainedObject:point]];
 		}
 		[_mapView removeAnnotations:[_mapView annotations]];
 		[_mapView addAnnotations:points];
 	}];
 }
 
-- (IBAction)signOut:(id)sender {
-	[PFUser logOut];
-	[self dismissViewControllerAnimated:YES completion:nil];
+- (void)takeToor {
+	PFObject *toor = [_toors objectForKey:[NSValue valueWithNonretainedObject:_triggeredPin]];
+	[self performSegueWithIdentifier:@"takeSegue" sender:toor];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -67,7 +70,7 @@
 		[annotationView setAnimatesDrop:YES];
 		[annotationView setCanShowCallout:YES];
 		UIButton *informationButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-		[informationButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+		[informationButton addTarget:self action:@selector(takeToor) forControlEvents:UIControlEventTouchUpInside];
 		[annotationView setRightCalloutAccessoryView:informationButton];
 	} else {
 		[annotationView setAnnotation:annotation];
@@ -75,13 +78,14 @@
 	return annotationView;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+	_triggeredPin = [view annotation];
 }
-*/
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue identifier] isEqualToString:@"takeSegue"]) {
+		TakeToorViewController *take = [segue destinationViewController];
+		[take setToor:sender];
+	}
+}
 @end

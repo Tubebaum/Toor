@@ -33,7 +33,7 @@
 	if (_triggeredPin) {
 		PFObject *stop = [_stopDict objectForKey:[NSValue valueWithNonretainedObject:_triggeredPin]];
 		if ([stop[@"name"] isEqualToString:@""]) {
-			[_triggeredPin setTitle:[NSString stringWithFormat:@"Stop %d", [_stops count] - 1]];
+			[_triggeredPin setTitle:[NSString stringWithFormat:@"Stop %u", [_stops count] - 1]];
 		} else {
 			[_triggeredPin setTitle:stop[@"name"]];
 		}
@@ -47,9 +47,10 @@
 - (void)longPressed:(UILongPressGestureRecognizer *)sender {
 	if (sender.state == UIGestureRecognizerStateBegan) {
 		[_navigation setPrompt:nil];
+		[[self navigationItem] rightBarButtonItem].enabled = YES;
 		CLLocationCoordinate2D location = [_mapView convertPoint:[sender locationInView:_mapView] toCoordinateFromView:_mapView];
 		MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-		[point setTitle:[NSString stringWithFormat:@"Stop %d", [_stops count]]];
+		[point setTitle:@"Stop"];
 		[point setCoordinate:location];
 		[_stops addObject:point];
 		PFObject *stop = [PFObject objectWithClassName:@"Stop"];
@@ -112,6 +113,10 @@
 		[annotationView setAnnotation:annotation];
 	}
 	return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+	_triggeredPin = [view annotation];
 }
 
 - (void)didReceiveMemoryWarning {

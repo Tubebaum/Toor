@@ -106,6 +106,9 @@
 				NSData *data = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:buffer];
 				PFFile *file = [PFFile fileWithData:data];
 				[_stop addObject:file forKey:@"media"];
+				[_stop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+					[[self navigationController] popViewControllerAnimated:NO];
+				}];
 			}];
 			break;
 		}
@@ -113,9 +116,6 @@
 			break;
 		}
 	}
-	[_stop saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-		[[self navigationController] popViewControllerAnimated:NO];
-	}];
 }
 
 - (void)didReceiveMemoryWarning {

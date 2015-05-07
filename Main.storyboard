@@ -212,10 +212,10 @@
             </objects>
             <point key="canvasLocation" x="2620" y="1034"/>
         </scene>
-        <!--Edit Toor-->
+        <!--Edit Stop-->
         <scene sceneID="Lxv-Yg-Kpp">
             <objects>
-                <tableViewController id="Syb-5f-eYR" customClass="StopTableViewController" sceneMemberID="viewController">
+                <tableViewController id="Syb-5f-eYR" customClass="EditStopTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SaN-1u-mzX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -233,7 +233,7 @@
                             <outlet property="delegate" destination="Syb-5f-eYR" id="6or-MD-vev"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Edit Toor" id="f5d-yc-kf7">
+                    <navigationItem key="navigationItem" title="Edit Stop" id="f5d-yc-kf7">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="f2G-H6-G25">
                             <connections>
                                 <segue destination="6s6-li-qbd" kind="show" identifier="mediaSegue" id="To6-bA-dTx"/>
@@ -248,7 +248,7 @@
         <!--Add Media-->
         <scene sceneID="LQs-mN-4Im">
             <objects>
-                <viewController id="6s6-li-qbd" sceneMemberID="viewController">
+                <viewController id="6s6-li-qbd" customClass="AddMediaViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0KI-vQ-yPj"/>
                         <viewControllerLayoutGuide type="bottom" id="Umx-oa-ZpQ"/>
@@ -257,18 +257,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V2p-Sh-yBx">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V2p-Sh-yBx">
                                 <rect key="frame" x="200" y="72" width="200" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="W69-F7-APw"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Audio"/>
                                     <segment title="Image"/>
                                     <segment title="Video"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segmented:" destination="6s6-li-qbd" eventType="valueChanged" id="eb5-mu-IMa"/>
+                                </connections>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YfP-hi-O0z">
+                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Add Media" id="cv4-0l-GIQ"/>
+                    <navigationItem key="navigationItem" title="Add Media" id="cv4-0l-GIQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="1yf-ug-3IZ">
+                            <connections>
+                                <action selector="captureButton:" destination="6s6-li-qbd" id="UKu-tk-m43"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="capture" destination="1yf-ug-3IZ" id="SuC-vc-U8a"/>
+                        <outlet property="preView" destination="YfP-hi-O0z" id="dVp-ch-fex"/>
+                        <outlet property="segment" destination="V2p-Sh-yBx" id="5hM-6T-R01"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XA8-jB-Sjo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

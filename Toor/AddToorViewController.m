@@ -72,7 +72,7 @@
 		FinalizeToorViewController *finalize = [segue destinationViewController];
 		[finalize setToor:sender];
 	} else if ([[segue identifier] isEqualToString:@"stopSegue"]) {
-		StopTableViewController *stop = [segue destinationViewController];
+		EditStopTableViewController *stop = [segue destinationViewController];
 		[stop setToor:sender];
 	}
 }

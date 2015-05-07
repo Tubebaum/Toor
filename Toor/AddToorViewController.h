@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "FinalizeToorViewController.h"
-#import "StopTableViewController.h"
+#import "EditStopTableViewController.h"
 
 @interface AddToorViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 

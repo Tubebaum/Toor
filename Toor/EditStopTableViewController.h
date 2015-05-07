@@ -1,5 +1,5 @@
 //
-//  StopTableViewController.h
+//  EditStopTableViewController.h
 //  Toor
 //
 //  Created by Thomas Huzij on 5/7/15.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 
-@interface StopTableViewController : UITableViewController
+@interface EditStopTableViewController : UITableViewController
 
 @property (strong, nonatomic) PFObject *toor;
 

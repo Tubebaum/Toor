@@ -119,8 +119,6 @@
         <!--Toor-->
         <scene sceneID="YJd-4P-dz6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DKE-gh-v4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="SJI-4n-roD"/>
                 <viewController id="9UD-XT-eIU" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vZ8-yG-xy5"/>
@@ -130,7 +128,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cp2-Ob-Uc4">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cp2-Ob-Uc4">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -138,17 +136,133 @@
                                 </connections>
                             </mapView>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="cp2-Ob-Uc4" firstAttribute="leading" secondItem="Dfv-YN-fLe" secondAttribute="leading" id="K9b-HA-zbz"/>
+                            <constraint firstItem="cp2-Ob-Uc4" firstAttribute="top" secondItem="Dfv-YN-fLe" secondAttribute="top" id="MM0-h9-dsO"/>
+                            <constraint firstAttribute="trailing" secondItem="cp2-Ob-Uc4" secondAttribute="trailing" id="jx4-PK-LUk"/>
+                            <constraint firstAttribute="bottom" secondItem="cp2-Ob-Uc4" secondAttribute="bottom" id="yW2-Pb-e4N"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Toor" id="rOX-ot-FC0">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pFB-63-Af6"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="wIH-Ds-ZpY">
+                            <connections>
+                                <action selector="refreshToors:" destination="9UD-XT-eIU" id="jN1-en-AVN"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pFB-63-Af6">
+                            <connections>
+                                <segue destination="Lxb-x2-756" kind="show" id="LSO-uR-NnQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="longPress" destination="SJI-4n-roD" id="eyr-8i-Fts"/>
                         <outlet property="mapView" destination="cp2-Ob-Uc4" id="6Lv-Fc-fXR"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DKE-gh-v4n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1941" y="1034"/>
+        </scene>
+        <!--New Toor-->
+        <scene sceneID="ada-nJ-Avf">
+            <objects>
+                <viewController id="Lxb-x2-756" customClass="AddToorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Svx-Tq-WJ0"/>
+                        <viewControllerLayoutGuide type="bottom" id="m7T-Qk-fjB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="t2E-rP-Cic">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P4L-1d-aRd">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="P4L-1d-aRd" firstAttribute="top" secondItem="t2E-rP-Cic" secondAttribute="top" id="6Re-tL-raf"/>
+                            <constraint firstAttribute="bottom" secondItem="P4L-1d-aRd" secondAttribute="bottom" id="Vol-zl-ZFq"/>
+                            <constraint firstItem="P4L-1d-aRd" firstAttribute="leading" secondItem="t2E-rP-Cic" secondAttribute="leading" id="X7w-qO-lPX"/>
+                            <constraint firstAttribute="trailing" secondItem="P4L-1d-aRd" secondAttribute="trailing" id="jQk-4p-egw"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="SJI-4n-roD" appends="YES" id="Tc5-sy-Hkn"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Toor" prompt="Place pin to start building your Toor" id="LZ9-kn-fTH">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="T7O-VZ-W54">
+                            <connections>
+                                <action selector="toorDone:" destination="Lxb-x2-756" id="xGy-Yy-24F"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="longPress" destination="SJI-4n-roD" id="yTY-v8-gDR"/>
+                        <outlet property="mapView" destination="P4L-1d-aRd" id="sGV-E4-qou"/>
+                        <outlet property="navigation" destination="LZ9-kn-fTH" id="Ppv-pv-t6b"/>
+                        <segue destination="hTb-sS-UTF" kind="show" identifier="toorSegue" id="9d1-Rt-ZLz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h1I-mC-OFT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="SJI-4n-roD"/>
+            </objects>
+            <point key="canvasLocation" x="2620" y="1034"/>
+        </scene>
+        <!--Finalize Toor-->
+        <scene sceneID="26u-KQ-Hra">
+            <objects>
+                <viewController id="hTb-sS-UTF" customClass="FinalizeToorViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yii-oE-NQJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="UxJ-Uh-6l4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nOD-zi-vdO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MfJ-i2-iX4">
+                                <rect key="frame" x="150" y="100" width="300" height="30"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1VE-h2-qdW"/>
+                                    <constraint firstAttribute="width" constant="97" id="kxw-mB-irL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Description" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lPE-r6-Spj">
+                                <rect key="frame" x="150" y="143" width="300" height="30"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.2034174111" green="0.70881867409999999" blue="0.19696805479999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="MfJ-i2-iX4" secondAttribute="centerX" id="OSS-3S-6Dp"/>
+                            <constraint firstAttribute="centerX" secondItem="lPE-r6-Spj" secondAttribute="centerX" id="zLa-IK-vuT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Finalize Toor" id="gw1-cB-LnY">
+                        <barButtonItem key="backBarButtonItem" title="Edit" id="UrP-t8-e4R"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="SPb-ei-Vvx">
+                            <connections>
+                                <action selector="doneToor:" destination="hTb-sS-UTF" id="WLg-IP-Wao"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="descriptionField" destination="lPE-r6-Spj" id="vYA-on-F2V"/>
+                        <outlet property="nameField" destination="MfJ-i2-iX4" id="03U-Q3-BYt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fAk-3Y-lIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="1034"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="6Ye-lK-5L6">

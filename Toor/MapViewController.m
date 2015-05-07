@@ -21,53 +21,30 @@
 	_locationManager = [[CLLocationManager alloc] init];
 	[_locationManager setDelegate:self];
 	[_mapView setRegion:MKCoordinateRegionMake([[_locationManager location] coordinate], MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
-	NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:4];
-	int point = 0;
-	for (float i = 0.00125; i > -0.00375; i -= 0.00250) {
-		for (float j = 0.00125; j > -0.00375; j -= 0.00250) {
-			points[point] = [[MKPointAnnotation alloc] init];
-			[points[point++] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude + i, [[_locationManager location] coordinate].longitude + j)];
-		}
-	}
-	[_mapView addAnnotations:points];
-	/*
-	for (int i = 0; i < 4; ++i) {
-		points[i] = [[MKPointAnnotation alloc] init];
-		switch (i) {
-			case 0:
-				[points[i] setTitle:@"North"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude + 0.00125, [[_locationManager location] coordinate].longitude)];
-				break;
-			case 1:
-				[points[i] setTitle:@"East"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude, [[_locationManager location] coordinate].longitude + 0.00125)];
-				break;
-			case 2:
-				[points[i] setTitle:@"South"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude - 0.00125, [[_locationManager location] coordinate].longitude)];
-				break;
-			case 3:
-				[points[i] setTitle:@"West"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude, [[_locationManager location] coordinate].longitude - 0.00125)];
-				break;
-			default:
-				break;
-		}
-		[_mapView addAnnotations:points];
-	}
-	*/
-	[_longPress addTarget:self action:@selector(longPressed:)];
-}
-
-- (void)longPressed:(UILongPressGestureRecognizer *)sender {
-	if (sender.state == UIGestureRecognizerStateBegan) {
-		NSLog(@"uh oh");
-	}
+	[self refreshToors:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)refreshToors:(id)sender {
+	NSMutableArray *points = [[NSMutableArray alloc] init];
+	PFQuery *query = [PFQuery queryWithClassName:@"Toor"];
+	[query whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:[_locationManager location]]];
+	[query setLimit:10];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *toors, NSError *error) {
+		for (PFObject *toor in toors) {
+			MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+			[point setTitle:toor[@"name"]];
+			PFGeoPoint *geopoint = toor[@"location"];
+			[point setCoordinate: CLLocationCoordinate2DMake([geopoint latitude], [geopoint longitude])];
+			[points addObject:point];
+		}
+		[_mapView removeAnnotations:[_mapView annotations]];
+		[_mapView addAnnotations:points];
+	}];
 }
 
 - (IBAction)signOut:(id)sender {

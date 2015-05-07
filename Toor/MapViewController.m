@@ -38,6 +38,7 @@
 		for (PFObject *toor in toors) {
 			MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
 			[point setTitle:toor[@"name"]];
+			[point setSubtitle:toor[@"description"]];
 			PFGeoPoint *geopoint = toor[@"location"];
 			[point setCoordinate: CLLocationCoordinate2DMake([geopoint latitude], [geopoint longitude])];
 			[points addObject:point];

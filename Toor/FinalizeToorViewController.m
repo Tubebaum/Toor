@@ -43,10 +43,6 @@
 	return YES;
 }
 
-- (void)setToor:(PFObject *)toor {
-	_toor = toor;
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

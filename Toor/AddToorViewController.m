@@ -24,17 +24,22 @@
 	[_longPress addTarget:self action:@selector(longPressed:)];
 	[_mapView addGestureRecognizer:_longPress];
 	_stops = [[NSMutableArray alloc] init];
+	_stopDict = [[NSMutableDictionary alloc] init];
 }
 
 - (void)longPressed:(UILongPressGestureRecognizer *)sender {
 	if (sender.state == UIGestureRecognizerStateBegan) {
-		[_navigation setPrompt:NULL];
+		[_navigation setPrompt:nil];
 		CLLocationCoordinate2D location = [_mapView convertPoint:[sender locationInView:_mapView] toCoordinateFromView:_mapView];
 		MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-		[point setTitle:[NSString stringWithFormat:@"%f, %f", location.latitude, location.longitude]];
+		[point setTitle:[NSString stringWithFormat:@"Stop %d", [_stops count]]];
 		[point setCoordinate:location];
 		[_stops addObject:point];
+		PFObject *stop = [PFObject objectWithClassName:@"Stop"];
+		stop[@"name"] = [point title];
+		[_stopDict setObject:stop forKey:[NSValue valueWithNonretainedObject:point]];
 		[_mapView addAnnotation:point];
+		[_mapView selectAnnotation:point animated:YES];
 	}
 }
 
@@ -44,20 +49,31 @@
 	}
 	PFObject *toor = [PFObject objectWithClassName:@"Toor"];
 	toor[@"user"] = [[PFUser currentUser] username];
+	PFGeoPoint *geopoint = nil;
 	for (MKPointAnnotation *point in _stops) {
-		PFObject *stop = [PFObject objectWithClassName:@"Stop"];
+		PFObject *stop = [_stopDict objectForKey:[NSValue valueWithNonretainedObject:point]];
 		stop[@"location"] = [PFGeoPoint geoPointWithLatitude:[point coordinate].latitude longitude:[point coordinate].longitude];
+		if (geopoint == nil) {
+			geopoint = stop[@"location"];
+		}
 		[toor addObject:stop forKey:@"stops"];
 	}
-	PFGeoPoint *geopoint = toor[@"stops"][0][@"location"];
 	toor[@"location"] = [PFGeoPoint geoPointWithLatitude:[geopoint latitude] longitude:[geopoint longitude]];
 	[self performSegueWithIdentifier:@"toorSegue" sender:toor];
 }
 
+- (void)editStop {
+	PFObject *stop = [_stopDict objectForKey:[NSValue valueWithNonretainedObject:_triggeredPin]];
+	[self performSegueWithIdentifier:@"stopSegue" sender:stop];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([[segue identifier] isEqualToString:@"toorSegue"]) {
-		FinalizeToorViewController *finalize = segue.destinationViewController;
+		FinalizeToorViewController *finalize = [segue destinationViewController];
 		[finalize setToor:sender];
+	} else if ([[segue identifier] isEqualToString:@"stopSegue"]) {
+		StopTableViewController *stop = [segue destinationViewController];
+		[stop setToor:sender];
 	}
 }
 
@@ -71,7 +87,8 @@
 		[annotationView setAnimatesDrop:YES];
 		[annotationView setCanShowCallout:YES];
 		UIButton *informationButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-		[informationButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+		_triggeredPin = annotation;
+		[informationButton addTarget:self action:@selector(editStop) forControlEvents:UIControlEventTouchUpInside];
 		[annotationView setRightCalloutAccessoryView:informationButton];
 	} else {
 		[annotationView setAnnotation:annotation];

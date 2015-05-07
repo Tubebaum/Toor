@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E2258FAF1AF9AB3E00F91524 /* AddToorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FAE1AF9AB3E00F91524 /* AddToorViewController.m */; };
 		E2258FB51AFA9C2000F91524 /* FinalizeToorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FB41AFA9C2000F91524 /* FinalizeToorViewController.m */; };
+		E2258FB81AFB3DCA00F91524 /* StopTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E2258FB71AFB3DCA00F91524 /* StopTableViewController.m */; };
 		E258BFC91ACE34BC0045BBE5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E258BFC81ACE34BC0045BBE5 /* main.m */; };
 		E258BFCC1ACE34BC0045BBE5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E258BFCB1ACE34BC0045BBE5 /* AppDelegate.m */; };
 		E258BFD41ACE34BC0045BBE5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E258BFD31ACE34BC0045BBE5 /* Images.xcassets */; };
@@ -47,6 +48,8 @@
 		E2258FAE1AF9AB3E00F91524 /* AddToorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToorViewController.m; sourceTree = "<group>"; };
 		E2258FB31AFA9C2000F91524 /* FinalizeToorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FinalizeToorViewController.h; sourceTree = "<group>"; };
 		E2258FB41AFA9C2000F91524 /* FinalizeToorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinalizeToorViewController.m; sourceTree = "<group>"; };
+		E2258FB61AFB3DCA00F91524 /* StopTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopTableViewController.h; sourceTree = "<group>"; };
+		E2258FB71AFB3DCA00F91524 /* StopTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StopTableViewController.m; sourceTree = "<group>"; };
 		E258BFC31ACE34BC0045BBE5 /* Toor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Toor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E258BFC71ACE34BC0045BBE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E258BFC81ACE34BC0045BBE5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				E2258FAE1AF9AB3E00F91524 /* AddToorViewController.m */,
 				E2258FB31AFA9C2000F91524 /* FinalizeToorViewController.h */,
 				E2258FB41AFA9C2000F91524 /* FinalizeToorViewController.m */,
+				E2258FB61AFB3DCA00F91524 /* StopTableViewController.h */,
+				E2258FB71AFB3DCA00F91524 /* StopTableViewController.m */,
 			);
 			path = Toor;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 				E2B1E4801ACE45EF00ADB706 /* LoginViewController.m in Sources */,
 				E2258FAF1AF9AB3E00F91524 /* AddToorViewController.m in Sources */,
 				E2F07A921ACED8C500111124 /* MapViewController.m in Sources */,
+				E2258FB81AFB3DCA00F91524 /* StopTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

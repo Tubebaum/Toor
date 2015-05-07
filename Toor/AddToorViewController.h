@@ -11,6 +11,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "FinalizeToorViewController.h"
+#import "StopTableViewController.h"
 
 @interface AddToorViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
@@ -20,5 +21,7 @@
 @property (strong, nonatomic) IBOutlet UILongPressGestureRecognizer *longPress;
 @property (strong, nonatomic) IBOutlet UINavigationItem *navigation;
 @property (strong, nonatomic) NSMutableArray *stops;
+@property (strong, nonatomic) NSMutableDictionary *stopDict;
+@property (strong, nonatomic) MKPointAnnotation *triggeredPin;
 
 @end

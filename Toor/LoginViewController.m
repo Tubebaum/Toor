@@ -26,6 +26,19 @@
 	[_locationManager requestWhenInUseAuthorization];
 }
 
+- (IBAction)segmented:(UISegmentedControl *)sender {
+	if ([_segment selectedSegmentIndex] == 0) {
+		[_password setReturnKeyType:UIReturnKeyNext];
+		[_email setHidden:NO];
+		[_email setReturnKeyType:UIReturnKeyGo];
+		[_signup setTitle:@"Sign Up" forState:UIControlStateNormal];
+	} else {
+		[_password setReturnKeyType:UIReturnKeyGo];
+		[_email setHidden:YES];
+		[_signup setTitle:@"Sign In" forState:UIControlStateNormal];
+	}
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[_username setText:nil];
 	[_password setText:nil];
@@ -49,7 +62,11 @@
 	if (textField == _username) {
 		[_password becomeFirstResponder];
 	} else if (textField == _password) {
-		[_email becomeFirstResponder];
+		if ([_segment selectedSegmentIndex] == 0) {
+			[_email becomeFirstResponder];
+		} else {
+			[self performSignup];
+		}
 	} else if (textField == _email) {
 		[self performSignup];
 	}
@@ -61,21 +78,36 @@
 		return;
 	} else if (![[_password text] length]) {
 		return;
-	} else if (![[_email text] length]) {
+	} else if (![[_email text] length] && [_segment selectedSegmentIndex] == 0) {
 		return;
 	}
 	PFUser *user = [PFUser user];
 	[user setUsername:[_username text]];
 	[user setPassword:[_password text]];
-	[user setEmail:[_email text]];
-	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-		if (!error) {
-			[self performSegueWithIdentifier:@"signupSegue" sender:nil];
-		} else {
-			NSString *errorString = [error userInfo][@"error"];
-			NSLog(@"%@", errorString);
-		}
-	}];
+	if ([_segment selectedSegmentIndex] == 0) {
+		[user setEmail:[_email text]];
+		[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error)		{
+			if (!error) {
+				[self performSegueWithIdentifier:@"signupSegue" sender:nil];
+			} else {
+				NSString *errorString = [error userInfo][@"error"];
+				NSLog(@"%@", errorString);
+			}
+		}];
+	} else {
+		[PFUser logInWithUsernameInBackground:[_username text] password:[_password text] block:^(PFUser *user, NSError *error) {
+			if (user) {
+				[self performSegueWithIdentifier:@"signupSegue" sender:nil];
+			} else {
+				UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Login failed" message:@"Username/Password mismatch" preferredStyle:UIAlertControllerStyleAlert];
+				UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+					[self dismissViewControllerAnimated:YES completion:nil];
+				}];
+				[alert addAction:ok];
+				[self presentViewController:alert animated:YES completion:nil];
+			}
+										}];
+	}
 }
 
 - (IBAction)signupTouchUp:(id)sender {

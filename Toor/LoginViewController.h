@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UIButton *signup;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segment;
 - (void)performSignup;
 @end

@@ -21,32 +21,13 @@
 	_locationManager = [[CLLocationManager alloc] init];
 	[_locationManager setDelegate:self];
 	[_mapView setRegion:MKCoordinateRegionMake([[_locationManager location] coordinate], MKCoordinateSpanMake(0.005, 0.005)) animated:YES];
-	NSMutableArray *points = [[NSMutableArray alloc] initWithCapacity:4];
-	for (int i = 0; i < 4; ++i) {
-		points[i] = [[MKPointAnnotation alloc] init];
-		switch (i) {
-			case 0:
-				[points[i] setTitle:@"North"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude + 0.00125, [[_locationManager location] coordinate].longitude)];
-				break;
-			case 1:
-				[points[i] setTitle:@"East"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude, [[_locationManager location] coordinate].longitude + 0.00125)];
-				break;
-			case 2:
-				[points[i] setTitle:@"South"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude - 0.00125, [[_locationManager location] coordinate].longitude)];
-				break;
-			case 3:
-				[points[i] setTitle:@"West"];
-				[points[i] setCoordinate:CLLocationCoordinate2DMake([[_locationManager location] coordinate].latitude, [[_locationManager location] coordinate].longitude - 0.00125)];
-				break;
-			default:
-				break;
-		}
-		[_mapView addAnnotations:points];
-	}
-	
+	_toors = [[NSMutableDictionary alloc] init];
+	_triggeredPin = nil;
+	[self refreshToors:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[self refreshToors:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,9 +35,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)signOut:(id)sender {
-	[PFUser logOut];
-	[self dismissViewControllerAnimated:YES completion:nil];
+- (IBAction)refreshToors:(id)sender {
+	NSMutableArray *points = [[NSMutableArray alloc] init];
+	PFQuery *query = [PFQuery queryWithClassName:@"Toor"];
+	[query whereKey:@"location" nearGeoPoint:[PFGeoPoint geoPointWithLocation:[_locationManager location]]];
+	[query setLimit:10];
+	[query findObjectsInBackgroundWithBlock:^(NSArray *toors, NSError *error) {
+		for (PFObject *toor in toors) {
+			MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+			[point setTitle:toor[@"name"]];
+			[point setSubtitle:toor[@"description"]];
+			PFGeoPoint *geopoint = toor[@"location"];
+			[point setCoordinate: CLLocationCoordinate2DMake([geopoint latitude], [geopoint longitude])];
+			[points addObject:point];
+			[_toors setObject:toor forKey:[NSValue valueWithNonretainedObject:point]];
+		}
+		[_mapView removeAnnotations:[_mapView annotations]];
+		[_mapView addAnnotations:points];
+	}];
+}
+
+- (void)takeToor {
+	PFObject *toor = [_toors objectForKey:[NSValue valueWithNonretainedObject:_triggeredPin]];
+	[self performSegueWithIdentifier:@"takeSegue" sender:toor];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -69,7 +70,7 @@
 		[annotationView setAnimatesDrop:YES];
 		[annotationView setCanShowCallout:YES];
 		UIButton *informationButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-		[informationButton addTarget:nil action:nil forControlEvents:UIControlEventTouchUpInside];
+		[informationButton addTarget:self action:@selector(takeToor) forControlEvents:UIControlEventTouchUpInside];
 		[annotationView setRightCalloutAccessoryView:informationButton];
 	} else {
 		[annotationView setAnnotation:annotation];
@@ -77,14 +78,14 @@
 	return annotationView;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+	_triggeredPin = [view annotation];
 }
-*/
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([[segue identifier] isEqualToString:@"takeSegue"]) {
+		TakeToorViewController *take = [segue destinationViewController];
+		[take setToor:sender];
+	}
+}
 @end

@@ -108,6 +108,34 @@
 	} else {
 		[_navItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextStop:)] animated:YES];
 	}
+	[self getDirections];
+	double latitudeZoom = fabs([[_locationManager location] coordinate].latitude - [_triggeredPin coordinate].latitude);
+	double longitudeZoom = fabs([[_locationManager location] coordinate].longitude - [_triggeredPin coordinate].longitude);
+	[_mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake(([[_locationManager location] coordinate].latitude + [_triggeredPin coordinate].latitude)/2, ([[_locationManager location] coordinate].longitude + [_triggeredPin coordinate].longitude)/2), MKCoordinateSpanMake(1.25 * latitudeZoom, 1.25 * longitudeZoom)) animated:YES];
+}
+
+- (void)getDirections {
+	MKDirectionsRequest *directionsRequest = [[MKDirectionsRequest alloc] init];
+	[directionsRequest setSource:[MKMapItem mapItemForCurrentLocation]];
+	[directionsRequest setDestination:[[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:[_triggeredPin coordinate] addressDictionary:nil]]];
+	[directionsRequest setTransportType:MKDirectionsTransportTypeWalking];
+	MKDirections *directions = [[MKDirections alloc] initWithRequest:directionsRequest];
+	[directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *directionsResponse, NSError *error) {
+		[_mapView removeOverlays:[_mapView overlays]];
+		for (MKRoute *route in [directionsResponse routes]) {
+			[_mapView addOverlay:[route polyline] level:MKOverlayLevelAboveRoads];
+		}
+	}];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
+	if ([overlay isKindOfClass:[MKPolyline class]]) {
+		MKPolylineRenderer *polylineRenderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+		[polylineRenderer setLineWidth:3.0];
+		[polylineRenderer setStrokeColor:[UIColor greenColor]];
+		return polylineRenderer;
+	}
+	return nil;
 }
 
 - (void)didReceiveMemoryWarning {
